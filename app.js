@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 
 const router = require('./src/routes');
 const errorHandler = require('./src/middlewares/errorHandler');
@@ -14,6 +15,12 @@ app.get('/', (req, res) => {
   );
 });
 
+app.use(
+  cors({
+    origin: process.env.FRONT_END_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(router);
 
