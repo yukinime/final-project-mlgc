@@ -1,12 +1,9 @@
 const { Firestore } = require('@google-cloud/firestore');
-const path = require('path');
 
 const crypto = require('crypto');
 const formatDate = require('../utils/formatDateTimezone');
 
-const db = new Firestore({
-  keyFilename: path.resolve(__dirname, '../../app-service-account.json'),
-});
+const db = new Firestore();
 
 const predictionCollection = db.collection('prediction');
 
