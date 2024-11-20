@@ -1,14 +1,11 @@
 const { Firestore } = require('@google-cloud/firestore');
-const path = require('path');
 
 const crypto = require('crypto');
 const formatDate = require('../utils/formatDateTimezone');
 
-const db = new Firestore({
-  keyFilename: path.resolve(__dirname, '../../app-service-account.json'),
-});
+const db = new Firestore();
 
-const predictionCollection = db.collection('prediction');
+const predictionCollection = db.collection('predictions');
 
 const createPrediction = async (result, suggestion) => {
   const id = crypto.randomUUID();
@@ -16,7 +13,7 @@ const createPrediction = async (result, suggestion) => {
 
   await predictionCollection.doc(id).set({ id, result, suggestion, createdAt });
 
-  return { id, createdAt };
+  return { id, createdAt: formatDate(createdAt) };
 };
 
 const getAllPrediction = async () => {
