@@ -5,7 +5,7 @@ const formatDate = require('../utils/formatDateTimezone');
 
 const db = new Firestore();
 
-const predictionCollection = db.collection('prediction');
+const predictionCollection = db.collection('predictions');
 
 const createPrediction = async (result, suggestion) => {
   const id = crypto.randomUUID();
@@ -13,7 +13,7 @@ const createPrediction = async (result, suggestion) => {
 
   await predictionCollection.doc(id).set({ id, result, suggestion, createdAt });
 
-  return { id, createdAt };
+  return { id, createdAt: formatDate(createdAt) };
 };
 
 const getAllPrediction = async () => {
