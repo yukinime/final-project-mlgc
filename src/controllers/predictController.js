@@ -18,6 +18,8 @@ const predict = async (req, res, next) => {
     const image = req.file;
     const model = req.app.locals.model;
 
+    console.log({ image });
+
     if (!model) {
       throw new Error('Model failed to load!');
     }
